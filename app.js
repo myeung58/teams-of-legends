@@ -5,14 +5,23 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-
+// var envs = require('envs');
+console.log(process.env.MONGOLAB_URI);
+// console.log(process.env);
 var mongoose = require('mongoose');
 // Load all models
 var models_path = __dirname + '/models';
 fs.readdirSync(models_path).forEach(function (file) {
   if (~file.indexOf('.js')) { require(models_path + '/' + file); }
 });
-mongoose.connect('mongodb://localhost/news');
+// mongoose.connect('mongodb://myeung58:2128My??@ds061325.mongolab.com:61325/tol');
+mongoose.connect(process.env.MONGOLAB_URI, function (error) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('connected to mongo');
+  }
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
