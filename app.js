@@ -4,11 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+
+var mongoose = require('mongoose');
+// Load all models
+var models_path = __dirname + '/models';
+fs.readdirSync(models_path).forEach(function (file) {
+  if (~file.indexOf('.js')) { require(models_path + '/' + file); }
+});
+mongoose.connect('mongodb://localhost/news');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
