@@ -28,6 +28,7 @@ var ApiRequest = (function() {
             resolve(JSON.parse(body));
           } else {
             console.log('reached reject');
+            console.log(error);
             reject(error);
           }
         });

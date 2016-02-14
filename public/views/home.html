@@ -1,18 +1,37 @@
-<div class="content">
+<div class="page-content">
   <div class="search">
     <form class="search-bar" ng-submit="searchForSummoner(search.content)">
       <input class="search-bar-content" type="text" placeholder="type summoner name to find team" ng-model="search.content" required>
       <i class="fa fa-search fa-2x search-bar-submit" ng-click="searchForSummoner(search.content)"></i>
     </form>
+
     <p class="loading text" ng-show="showLoadingText">...searching</p>
-    <div class="search-summoner-result" ng-show="render.summonerResult" ng-click="renderReset()">
-          <!-- <p class="search-summoner-result-title">Summoner Found. Click to get team</p> -->
-          <p class="search-summoner-result-name">{{summoner.name}}</p>
-          <p class="search-summoner-result-level">summoner level: {{summoner.summonerLevel}}</p>
-          <p class="search-summoner-result-prompt">click to get team</p>
+
+    <div class="search-summoner-result" ng-show="render.summonerResult" ng-click="searchForTeams()">
+      <p class="search-summoner-result-name">{{summonerResult.name}}</p>
+      <p class="search-summoner-result-level">summoner level: {{summonerResult.summonerLevel}}</p>
+      <p class="search-summoner-result-prompt">click to get team</p>
     </div>
+
     <div class="search-summoner-no-result" ng-show="render.summonerNoResult">
       <p class="search-summoner-no-result-content">Couldn't find this summoner</p>
+    </div>
+
+    <div class="search-teams-result" ng-show="render.teamsResult">
+      <div ng-repeat="teamResult in teamsResult">
+        <div class="search-teams-result-item" ng-click="toggleTeamStats(teamResult)">
+          <p class="search-teams-result-name">{{teamResult.name}}</p>
+        </div>
+
+        <!-- all relevant team metrics -->
+        <div class="team-content" ng-show="render.teamStats && currentTeam.name === teamResult.name">
+          <p>{{teamResult.name}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-teams-no-result" ng-show="render.teamsNoResult">
+      <p class="search-summoner-no-result-content">This summoner does not belong to a team</p>
     </div>
   </div>
 

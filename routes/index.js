@@ -49,21 +49,20 @@ router.get('/summoners/by-name', function(req, res) {
   }, function() {
     res.json({});
   });
-  // var url = 'https://na.api.pvp.net/api/lol/na/v2.4/by-summoner/' + summoner.id + '?api_key=' + process.env.LOL_API_KEY;
-  //   console.log('url: ', url);
-  //   var p2 = ApiRequest.get(url);
-  // p2.then(function(teamData) {
-  //   console.log('inside team then');
-  //   console.log('teamData: ', teamData);
-  //   res.json(teamData);
-  // });
+});
 
-  // console.log('summoner: ', summoner);
-  // if (summoner.id) {
-  //   var url = 'https://na.api.pvp.net/api/lol/na/v2.4/by-summoner/' + summoner.id + '?api_key=' + process.env.LOL_API_KEY;
-  //   var result = ApiRequest.get(url);
-  //   res.json(result);
-  // }
+router.get('/teams/by-summoner', function(req, res) {
+  console.log('request body: ', req.query);
+  var summonerId = req.query.id;
+
+  var url = 'https://na.api.pvp.net/api/lol/na/v2.4/team/by-summoner/' + summonerId + '?api_key=' + process.env.LOL_API_KEY;
+  var p = ApiRequest.get(url);
+  p.then(function(teamData) {
+    console.log('inside team then');
+    res.json(teamData);
+  }, function() {
+    res.json({});
+  });
 });
 
 router.post('/teams', function(req, res, next) {
@@ -76,8 +75,8 @@ router.post('/teams', function(req, res, next) {
   });
 });
 
-function makeApiRequest() {
+// function resolvedResponse() {
 
-};
+// };
 
 module.exports = router;
