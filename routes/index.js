@@ -46,6 +46,8 @@ router.get('/summoners/by-name', function(req, res) {
     console.log('inside summoner then');
     console.log(summonerData[summonerName].id);
     res.json(summonerData);
+  }, function() {
+    res.json({});
   });
   // var url = 'https://na.api.pvp.net/api/lol/na/v2.4/by-summoner/' + summoner.id + '?api_key=' + process.env.LOL_API_KEY;
   //   console.log('url: ', url);

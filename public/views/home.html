@@ -1,7 +1,19 @@
-<div class="search">
-  <form class="search-bar" ng-submit="searchForSummoner(search.content)">
-    <input class="search-bar-content" type="text" placeholder="summoner name" ng-model="search.content" required>
-    <i class="fa fa-search fa-2x search-bar-submit" ng-click="searchForSummoner(search.content)"></i>
-  </form>
-  <p class="loading text" ng-show="showLoadingText">...searching</p>
+<div class="content">
+  <div class="search">
+    <form class="search-bar" ng-submit="searchForSummoner(search.content)">
+      <input class="search-bar-content" type="text" placeholder="type summoner name to find team" ng-model="search.content" required>
+      <i class="fa fa-search fa-2x search-bar-submit" ng-click="searchForSummoner(search.content)"></i>
+    </form>
+    <p class="loading text" ng-show="showLoadingText">...searching</p>
+    <div class="search-summoner-result" ng-show="render.summonerResult" ng-click="renderReset()">
+          <!-- <p class="search-summoner-result-title">Summoner Found. Click to get team</p> -->
+          <p class="search-summoner-result-name">{{summoner.name}}</p>
+          <p class="search-summoner-result-level">summoner level: {{summoner.summonerLevel}}</p>
+          <p class="search-summoner-result-prompt">click to get team</p>
+    </div>
+    <div class="search-summoner-no-result" ng-show="render.summonerNoResult">
+      <p class="search-summoner-no-result-content">Couldn't find this summoner</p>
+    </div>
+  </div>
+
 </div>
