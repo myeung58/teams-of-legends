@@ -5,16 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-// var envs = require('envs');
-console.log(process.env.MONGOLAB_URI);
-// console.log(process.env);
+
 var mongoose = require('mongoose');
 // Load all models
 var models_path = __dirname + '/models';
 fs.readdirSync(models_path).forEach(function (file) {
   if (~file.indexOf('.js')) { require(models_path + '/' + file); }
 });
-// mongoose.connect('mongodb://myeung58:2128My??@ds061325.mongolab.com:61325/tol');
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
   if (error) {
     console.error(error);
@@ -23,15 +20,15 @@ mongoose.connect(process.env.MONGOLAB_URI, function (error) {
   }
 });
 
+var public_path = __dirname + '/public';
+fs.readdirSync(public_path).forEach(function (file) {
+  if (~file.indexOf('.js')) { require(public_path + '/javascripts' + file); }
+});
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
-
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

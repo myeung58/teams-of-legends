@@ -1,7 +1,7 @@
 <div class="search">
-  <form class="search-bar" ng-submit="searchFor(search.content)">
+  <form class="search-bar" ng-submit="searchForSummoner(search.content)">
     <input class="search-bar-content" type="text" placeholder="summoner name" ng-model="search.content" required>
-    <i class="fa fa-search fa-2x search-bar-submit" ng-click="searchFor(search.content)"></i>
+    <i class="fa fa-search fa-2x search-bar-submit" ng-click="searchForSummoner(search.content)"></i>
   </form>
   <p class="loading text" ng-show="showLoadingText">...searching</p>
 </div>

@@ -1,6 +1,6 @@
 var app = angular.module('TeamsOfLegends', ['ui.router']);
 
-app.config([
+angular.module('TeamsOfLegends').config([
   '$stateProvider',
   '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
