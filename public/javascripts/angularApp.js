@@ -1,4 +1,4 @@
-var app = angular.module('TeamsOfLegends', ['ui.router']);
+var app = angular.module('TeamsOfLegends', ['ui.router', 'ngAnimate']);
 
 angular.module('TeamsOfLegends').config([
   '$stateProvider',

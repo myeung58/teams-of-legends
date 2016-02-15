@@ -1,10 +1,10 @@
-// move service back to service file after fixing Unknown Provider issue
 angular.module('TeamsOfLegends').controller('mainController', function ($scope, SearchService, StatsService) {
   $scope.searchTerm = '';
   $scope.summonerResult = {};
   $scope.teamsResult = {};
   $scope.currentTeam = {};
   $scope.currentRosterInfo = {};
+  $scope.historySummary = {};
   $scope.render = {
     loadingText: false,
     summonerResult: false,
@@ -13,7 +13,6 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
     teamsNoResult: false,
     teamStats: false,
   };
-  $scope.test = StatsService.test;
 
   $scope.renderReset = function(exception) {
     console.log('render reset');
@@ -70,10 +69,20 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
       $scope.currentTeam = team;
       $scope.render.teamStats = true;
       // do something with StatsService
+      StatsService.compileHistorySummary(team.matchHistory, function(historySummary) {
+        console.log('got back history summmary');
+        // historical wins and losses
+        // gameMode, win (boolean), mapId, kills, assists, deaths, opposingTeamName
+        // charts for kda
+        console.log('about to render history summary: ', historySummary);
+        $scope.historySummary = historySummary;
+      });
+
       StatsService.getRoster(team.roster, function(members) {
         console.log('about to render members: ', members);
         $scope.currentRosterInfo = members;
       });
+
     }
   };
 

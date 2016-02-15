@@ -10,12 +10,12 @@
 
   <div class="result">
     <div class="summoner-result" ng-show="render.summonerResult" ng-click="searchForTeams()">
-      <p class="summoner-result-name">{{summonerResult.name}} (level: {{summonerResult.summonerLevel}})</p>
+      <p class="summoner-result-name">{{summonerResult.name}}</p>
       <p class="summoner-result-prompt">click to get team</p>
     </div>
 
     <div class="summoner-no-result" ng-show="render.summonerNoResult">
-      <p class="summoner-no-result-content">Couldn't find this summoner</p>
+      <p class="summoner-no-result-content">Summoner not found</p>
     </div>
 
     <div class="teams-result" ng-show="render.teamsResult">
@@ -26,10 +26,44 @@
 
         <!-- all relevant team metrics -->
         <div class="team-content" ng-show="render.teamStats && currentTeam.name === teamResult.name">
-          <h4>{{teamResult.name}}</h5>
 
-          <div ng-repeat="member in currentRosterInfo">
-            <a href="{{member.externalProfileUrl}}" target="_blank">{{member.name}} ({{member.summonerLevel}})</a>
+          <div class="team-content-roster">
+            <h5>Roster</h5>
+            <div ng-repeat="member in currentRosterInfo">
+              <a class="team-content-member-name" href="{{member.externalProfileUrl}}" target="_blank">{{member.name}} ({{member.summonerLevel}})</a>
+            </div>
+          </div>
+
+          <div class="team-content-stats">
+            <table class="team-content-stats-kda-table">
+              <tr>
+                <td><h5>Total Kills </h5></td>
+                <td>  {{historySummary.totalKills}}</td>
+                <td><h5>Total Deaths </h5></td>
+                <td>  {{historySummary.totalDeaths}}</td>
+                <td><h5>Total Assists </h5></td>
+                <td>  {{historySummary.totalAssists}}</td>
+              </tr>
+              <tr>
+                <td><h5>Avg. Kills </h5></td>
+                <td>  {{historySummary.averageKills}}</td>
+                <td><h5>Avg. Deaths </h5></td>
+                <td>  {{historySummary.averageDeaths}}</td>
+                <td><h5>Avg. Assists </h5></td>
+                <td>  {{historySummary.averageAssists}}</td>
+              </tr>
+            </table>
+          </div>
+
+          <h5 class="team-content-past-matches-title">Past {{historySummary.matchHistory.length}} matches</h5>
+          <div class="team-content-past-match" ng-repeat="match in historySummary.matchHistory">
+            <!-- game mode, date, map, opposing team -->
+            <div ng-class="{'team-content-past-match': true, 'won-match': match.win, 'lost-match': !match.win}">
+              <h4 class="past-match-item past-match-opposing-team">vs {{match.opposingTeamName}}</h4>
+              <p class="past-match-item past-match-date">{{match.date}}</p>
+              <h5 class="past-match-item past-match-map">{{match.map}}</h5>
+              <h5 class="past-match-item past-match-gameMode">{{match.gameMode}}</h5>
+            </div>
           </div>
 
           <!-- <h5 class="team-content-close" ng-click="toggleTeamStats()">close</h5> -->

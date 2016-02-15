@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.0/angular-animate.js"></script>
   </head>
   <body ng-app="TeamsOfLegends" ng-controller="mainController">
     <ui-view></ui-view>
+
+    <video autoplay loop poster="images/lolbackground.png" id="video-background">
+      <source src="/videos/lolbackgroundshort.webm" type="video/webm">
+      <source src="/videos/lolbackgroundshort.mp4" type="video/mp4">
+    </video>
   </body>
 
   <script src="/javascripts/angularApp.js"></script>

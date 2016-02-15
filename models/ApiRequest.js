@@ -1,22 +1,5 @@
 var request = require('request');
 
-// var ApiRequest = (function() {
-//   var apiKey = process.env.LOL_API_KEY;
-//   console.log('api key: ', apiKey);
-//   return {
-//     get: function(url) {
-//       console.log('about to make request to ', url);
-//       request.get(url, function (error, response, body) {
-//         console.log('error: ', error);
-//         if (!error && response.statusCode == 200) {
-//           console.log(body);
-//           return body;
-//         }
-//       });
-//     }
-//   };
-// })();
-
 var ApiRequest = (function() {
   return {
     get: function(url) {
