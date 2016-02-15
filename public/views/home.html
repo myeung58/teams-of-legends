@@ -6,33 +6,40 @@
     </form>
 
     <p class="loading text" ng-show="showLoadingText">...searching</p>
+  </div>
 
-    <div class="search-summoner-result" ng-show="render.summonerResult" ng-click="searchForTeams()">
-      <p class="search-summoner-result-name">{{summonerResult.name}}</p>
-      <p class="search-summoner-result-level">summoner level: {{summonerResult.summonerLevel}}</p>
-      <p class="search-summoner-result-prompt">click to get team</p>
+  <div class="result">
+    <div class="summoner-result" ng-show="render.summonerResult" ng-click="searchForTeams()">
+      <p class="summoner-result-name">{{summonerResult.name}} (level: {{summonerResult.summonerLevel}})</p>
+      <p class="summoner-result-prompt">click to get team</p>
     </div>
 
-    <div class="search-summoner-no-result" ng-show="render.summonerNoResult">
-      <p class="search-summoner-no-result-content">Couldn't find this summoner</p>
+    <div class="summoner-no-result" ng-show="render.summonerNoResult">
+      <p class="summoner-no-result-content">Couldn't find this summoner</p>
     </div>
 
-    <div class="search-teams-result" ng-show="render.teamsResult">
+    <div class="teams-result" ng-show="render.teamsResult">
       <div ng-repeat="teamResult in teamsResult">
-        <div class="search-teams-result-item" ng-click="toggleTeamStats(teamResult)">
-          <p class="search-teams-result-name">{{teamResult.name}}</p>
+        <div class="teams-result-item" ng-click="toggleTeamStats(teamResult)">
+          <p class="teams-result-name">{{teamResult.name}}</p>
         </div>
 
         <!-- all relevant team metrics -->
         <div class="team-content" ng-show="render.teamStats && currentTeam.name === teamResult.name">
-          <p>{{test}}</p>
+          <h4>{{teamResult.name}}</h5>
+
+          <div ng-repeat="member in currentRosterInfo">
+            <a href="{{member.externalProfileUrl}}" target="_blank">{{member.name}} ({{member.summonerLevel}})</a>
+          </div>
+
+          <!-- <h5 class="team-content-close" ng-click="toggleTeamStats()">close</h5> -->
         </div>
       </div>
     </div>
 
-    <div class="search-teams-no-result" ng-show="render.teamsNoResult">
-      <p class="search-summoner-no-result-content">This summoner does not belong to a team</p>
+    <div class="teams-no-result" ng-show="render.teamsNoResult">
+      <p class="summoner-no-result-content">This summoner does not belong to a team</p>
     </div>
-  </div>
 
+  </div>
 </div>

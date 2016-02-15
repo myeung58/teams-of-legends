@@ -1,9 +1,10 @@
 // move service back to service file after fixing Unknown Provider issue
-angular.module('TeamsOfLegends').controller('mainController', function ($scope, SearchService, MetricsService) {
+angular.module('TeamsOfLegends').controller('mainController', function ($scope, SearchService, StatsService) {
   $scope.searchTerm = '';
   $scope.summonerResult = {};
   $scope.teamsResult = {};
   $scope.currentTeam = {};
+  $scope.currentRosterInfo = {};
   $scope.render = {
     loadingText: false,
     summonerResult: false,
@@ -12,7 +13,7 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
     teamsNoResult: false,
     teamStats: false,
   };
-  $scope.test = MetricsService.test;
+  $scope.test = StatsService.test;
 
   $scope.renderReset = function(exception) {
     console.log('render reset');
@@ -26,7 +27,7 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
   $scope.searchForSummoner = function(searchTerm) {
     if (!searchTerm) { return; }
     console.log(searchTerm);
-    $scope.searchTerm = searchTerm.trim();
+    $scope.searchTerm = searchTerm.trim().toLowerCase();
     SearchService.getSummoner($scope.searchTerm, function(summoner) {
       console.log('about to render: ', summoner);
       $scope.renderReset();
@@ -61,14 +62,20 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
   };
 
   $scope.toggleTeamStats = function(team) {
-    // $scope.renderReset('teamsResult');
     if ($scope.currentTeam === team) {
       $scope.renderReset('teamsResult');
       $scope.currentTeam = {};
+      $scope.currentRosterInfo = {};
     } else {
       $scope.currentTeam = team;
       $scope.render.teamStats = true;
+      // do something with StatsService
+      StatsService.getRoster(team.roster, function(members) {
+        console.log('about to render members: ', members);
+        $scope.currentRosterInfo = members;
+      });
     }
   };
+
 
 });

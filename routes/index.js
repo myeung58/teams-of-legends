@@ -51,6 +51,20 @@ router.get('/summoners/by-name', function(req, res) {
   });
 });
 
+router.get('/summoners/by-ids', function(req, res) {
+  console.log('request.body: ', req.query);
+  var ids = req.query.ids;
+  var url = 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/' + ids + '?api_key=' + process.env.LOL_API_KEY;
+  var p = ApiRequest.get(url);
+  p.then(function(summonersData) {
+    console.log('inside summoners then');
+    console.log(summonersData);
+    res.json(summonersData);
+  }, function() {
+    res.json({});
+  });
+});
+
 router.get('/teams/by-summoner', function(req, res) {
   console.log('request body: ', req.query);
   var summonerId = req.query.id;

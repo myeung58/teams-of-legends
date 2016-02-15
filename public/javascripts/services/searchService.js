@@ -1,7 +1,7 @@
 // Fix Unknown Provider issue first
 
 app.service('SearchService', function ($http) {
-  _this = this;
+  // _this = this;
   this.urls = {};
 
   // send get request to backend

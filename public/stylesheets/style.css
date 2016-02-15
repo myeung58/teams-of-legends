@@ -4,6 +4,7 @@ body {
 
 .search {
   width: 60%;
+  margin: 10% auto 0 auto;
 }
 
 .search-bar {
@@ -30,42 +31,42 @@ body {
   z-index: 10;
 }
 
-.search-summoner-result {
+.result {
+  width: 80%;
+  margin: 20px auto 10% auto;
+}
+
+.summoner-result {
   width: 100%;
 }
 
-/*.search-summoner-result-title {
+/*.summoner-result-title {
   margin-left: 20px;
 }*/
 
-.search-summoner-result-name {
+.summoner-result-name {
   margin-left: 20px;
-  width: 30%;
+  width: 25%;
   float: left;
 }
 
-.search-summoner-result-level {
-  width: 30%;
-  float: left;
-}
-
-.search-summoner-result-prompt {
+.summoner-result-prompt {
   margin-right: 20px;
   float: right;
   font-style: italic;
 }
 
-.search-summoner-no-result-content {
+.summoner-no-result-content {
   margin-left: 20px;
 }
 
-.search-teams-result-item {
+.teams-result-item {
   /*margin: 0 20px 0 20px;*/
   padding: 0 20px 0 20px;
   background-color: red;
 }
 
-.search-teams-result-name {
+.teams-result-name {
   margin: 0;
 }
 
