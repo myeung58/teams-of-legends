@@ -1,5 +1,5 @@
 // move service back to service file after fixing Unknown Provider issue
-angular.module('TeamsOfLegends').controller('mainController', function ($scope, SearchService) {
+angular.module('TeamsOfLegends').controller('mainController', function ($scope, SearchService, MetricsService) {
   $scope.searchTerm = '';
   $scope.summonerResult = {};
   $scope.teamsResult = {};
@@ -12,6 +12,7 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
     teamsNoResult: false,
     teamStats: false,
   };
+  $scope.test = MetricsService.test;
 
   $scope.renderReset = function(exception) {
     console.log('render reset');
@@ -63,6 +64,7 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
     // $scope.renderReset('teamsResult');
     if ($scope.currentTeam === team) {
       $scope.renderReset('teamsResult');
+      $scope.currentTeam = {};
     } else {
       $scope.currentTeam = team;
       $scope.render.teamStats = true;

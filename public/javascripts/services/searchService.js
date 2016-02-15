@@ -1,6 +1,6 @@
 // Fix Unknown Provider issue first
 
-angular.module('TeamsOfLegends').service('SearchService', function ($http) {
+app.service('SearchService', function ($http) {
   _this = this;
   this.urls = {};
 
