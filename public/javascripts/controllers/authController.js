@@ -15,11 +15,9 @@ app.controller('authController', function ($scope, $state, AuthService) {
     $scope.user = user;
 
     AuthService.signup($scope.user, function(message) {
-      console.log(message);
       if (message === 'success') {
         $scope.isLoggedIn = true;
         $scope.toggleSignupForm();
-        console.log('logged in: ', message);
       } else {
         $scope.errorMessage = message;
       }
@@ -30,12 +28,9 @@ app.controller('authController', function ($scope, $state, AuthService) {
     $scope.user = user;
 
     AuthService.signin($scope.user, function(message) {
-      console.log(message);
       if (message === 'success') {
         $scope.isLoggedIn = true;
         $scope.toggleSigninForm();
-
-        console.log('logged in: ', message);
       } else {
         $scope.errorMessage = message;
       }
@@ -52,14 +47,12 @@ app.controller('authController', function ($scope, $state, AuthService) {
     $scope.render.signupForm = !$scope.render.signupForm;
     $scope.render.signinForm = false;
     $scope.errorMessage = '';
-    console.log('toggling sign up form to: ', $scope.render.signupForm);
   };
 
   $scope.toggleSigninForm = function() {
     $scope.render.signinForm = !$scope.render.signinForm;
     $scope.render.signupForm = false;
     $scope.errorMessage = '';
-    console.log('toggling sign in form to: ', $scope.render.signinForm);
   };
 
 });

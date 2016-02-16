@@ -8,22 +8,23 @@ app.service('StatsService', function ($http) {
     11: 'SummonersRiftNew',
     12: 'ProvingGroundsNew'
   };
+  this.urls = {
+    getRoster: '/summoners/by-ids?ids=',
+    rosterMember: 'http://na.op.gg/summoner/userName='
+  };
 
   this.getRoster = function(roster, callback) {
     if (!roster.memberList.length) { return; }
 
-    var url = '/summoners/by-ids?ids=' + this.idsStringFrom(roster.memberList),
+    var url = this.urls.getRoster + this.idsStringFrom(roster.memberList),
       members;
 
-    console.log('url: ', url);
     $http.get(url)
       .then(function(response) {
-        console.log('success response from backend');
-        console.log(response.data);
         if (Object.keys(response.data).length) {
           members = response.data;
           for(var id in members) {
-            members[id].externalProfileUrl = _this.rosterMemberUrl(members[id]);
+            members[id].externalProfileUrl = _this.urls.rosterMember + members[id].name;
           }
           callback(members);
         } else {
@@ -35,14 +36,13 @@ app.service('StatsService', function ($http) {
 
   this.compileHistorySummary = function(matchHistory, callback) {
     if (!matchHistory.length) { return; }
-    console.log('matches played: ', matchHistory.length);
+
     var historySummary = { matchHistory: matchHistory },
       totalKills = 0,
       totalAssists = 0,
       totalDeaths = 0,
       matchesPlayed = matchHistory.length;
 
-    // compile data
     matchHistory.forEach(function(match) {
       var fullDate = new Date(match.date),
         dateComponents = fullDate.toString().split(' ');
@@ -69,7 +69,6 @@ app.service('StatsService', function ($http) {
     var idsString;
 
     memberList.forEach(function(member) {
-      // ids.push(member.playerId);
       if (idsString) {
         idsString += ',' + member.playerId;
       } else {
@@ -78,9 +77,5 @@ app.service('StatsService', function ($http) {
     });
 
     return idsString;
-  };
-
-  this.rosterMemberUrl = function(member) {
-    return 'http://na.op.gg/summoner/userName=' + member.name;
   };
 });

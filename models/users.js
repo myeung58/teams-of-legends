@@ -31,7 +31,7 @@ UserSchema.methods.generateJWT = function() {
 
   // set expiration to 60 days
   exp.setDate(today.getDate() + 60);
-  console.log('about to sign jwt');
+
   return jwt.sign({
     _id: this._id,
     username: this.username,

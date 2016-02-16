@@ -21,33 +21,54 @@ video#video-background {
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-  color: #8e8e8e;
+  color: #707070;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color: #8e8e8e;
+  color: #707070;
   opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color: #8e8e8e;
+  color: #707070;
   opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #8e8e8e;
+  color: #707070;
 }
 :placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-  color: #8e8e8e;
+  color: #707070;
+}
+
+.logo {
+  width: 60%;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+}
+
+.logo-text {
+  width: 50%;
+  font-family: Artifika;
+  font-size: 50px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+}
+
+.logo-icon {
+  float: left;
 }
 
 .search {
   width: 60%;
-  margin: 10% auto 5% auto;
+  margin: 40px auto 5% auto;
 }
 
 .search-bar {
   height: 50px;
   width: 100%;
   position: relative;
-  border: 5px solid #2f2a2d;
+  border: 3px solid #4f474b;
   border-radius: 5px;
   margin-bottom: 20px;
   background-color: #efefef;
@@ -60,7 +81,7 @@ video#video-background {
   width: 100%;
   padding: 10px;
   font-size: 20px;
-  background-color: #edfcef;
+  background-color: #f2f2f2;
 }
 
 .search-bar-submit {
@@ -141,7 +162,6 @@ video#video-background {
 .team-content {
   position: relative;
   width: 100%;
-  /*margin: 0 20px 0 20px;*/
   background-color: #e2e2e2;
   margin: 0;
   padding: 20px;
@@ -219,4 +239,39 @@ video#video-background {
 
 .lost-match {
   background-color: #ffb2b2;
+}
+
+@media only screen and (max-width: 550px) {
+  .logo-text {
+    font-size: 30px;
+  }
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    opacity: 0;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    opacity: 0;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    opacity: 0;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    opacity: 0;
+  }
+  :placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+    opacity: 0;
+  }
+
+  .past-match-date {
+    width: 100%;
+  }
+
+  .past-match-map {
+    width: 100%;
+    text-align: left;
+  }
+
+  .past-match-gameMode {
+    width: 100%;
+    text-align: left;
+  }
 }

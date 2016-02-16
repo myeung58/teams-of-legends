@@ -1,4 +1,8 @@
 <div class="page-content"  ng-controller="mainController">
+  <div class="logo" ng-show="render.logo">
+    <p class="logo-text">TeamsOfLegends</p>
+  </div>
+
   <div class="search">
     <form class="search-bar" ng-submit="searchForSummoner(search.content)">
       <input class="search-bar-content" type="text" placeholder="type summoner name to find team" ng-model="search.content" required>
@@ -24,7 +28,6 @@
           <p class="teams-result-name">{{teamResult.name}}</p>
         </div>
 
-        <!-- all relevant team metrics -->
         <div class="team-content" ng-show="render.teamStats && currentTeam.name === teamResult.name">
 
           <div class="team-content-roster">
@@ -57,7 +60,6 @@
 
           <h5 class="team-content-past-matches-title">Past {{historySummary.matchHistory.length}} matches</h5>
           <div class="team-content-past-match" ng-repeat="match in historySummary.matchHistory">
-            <!-- game mode, date, map, opposing team -->
             <div ng-class="{'team-content-past-match': true, 'won-match': match.win, 'lost-match': !match.win}">
               <h4 class="past-match-item past-match-opposing-team">vs {{match.opposingTeamName}}</h4>
               <p class="past-match-item past-match-date">{{match.date}}</p>
@@ -66,7 +68,6 @@
             </div>
           </div>
 
-          <!-- <h5 class="team-content-close" ng-click="toggleTeamStats()">close</h5> -->
         </div>
       </div>
     </div>

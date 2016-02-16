@@ -1,15 +1,14 @@
 app.service('RequestService', function ($http) {
-  this.urls = {};
+  this.urls = {
+    getSummonerUrl: '/summoners/by-name?name=',
+    getTeamsUrl: '/teams/by-summoner?id='
+  };
 
-  // send get request to backend
   this.getSummoner = function(searchTerm, callback) {
-    // send request to backend
-    var url = '/summoners/by-name?name=' + searchTerm;
+    var url = this.urls.getSummonerUrl + searchTerm;
+
     $http.get(url)
       .then(function(response) {
-        // should return a team name
-        console.log('success response from backend');
-        console.log(response.data);
         if (response.data[searchTerm]) {
           callback(response.data[searchTerm]);
         } else {
@@ -19,11 +18,10 @@ app.service('RequestService', function ($http) {
   };
 
   this.getTeams = function(summonerId, callback) {
-    var url = '/teams/by-summoner?id=' + summonerId;
+    var url = this.urls.getTeamsUrl + summonerId;
+
     $http.get(url)
       .then(function(response) {
-        console.log('success response from backend');
-        console.log(response.data);
         if (response.data[summonerId]) {
           callback(response.data[summonerId]);
         } else {

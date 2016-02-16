@@ -5,46 +5,53 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/mainStyle.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/authStyle.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Artifika" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
-    <!--<script src="https://code.angularjs.org/1.5.0/angular-animate.js"></script>
-    <script src="https://code.angularjs.org/1.5.0/angular-mocks.js"></script>-->
   </head>
   <body ng-app="TeamsOfLegends">
     <div class="auth" ng-controller="authController">
 
-      <div class="auth-signup">
-        <div class="auth-signup-button" ng-show="!isLoggedIn" ng-click="toggleSignupForm()">
-          <i class="fa fa-user-plus fa-2x"></i>
+      <div class="auth-signup auth-component" ng-show="!isLoggedIn">
+        <div class="auth-button" ng-click="toggleSignupForm()">
+          <i class="fa fa-user-plus fa-3x"></i>
         </div>
 
-        <form class="auth-form" ng-show="render.signupForm">
-          <h3 class="auth-form-title">Sign Up</h3>
+        <form class="auth-signup-form" ng-show="render.signupForm">
+          <p class="auth-form-title">Sign Up</p>
           <input class="auth-form-input" type="text" placeholder="Email" ng-model="user.username"></input>
           <input class="auth-form-input" type="password" placeholder="New Password" ng-model="user.password"></input>
-          <button class="auth-form-submit signup-submit" ng-click="signup(user)">Sign Up</button>
+          <button class="auth-form-input auth-form-submit" ng-click="signup(user)">Ok</button>
           <p class="auth-form-error-message" ng-show="errorMessage && render.signupForm">{{errorMessage}}</p>
         </form>
       </div>
 
-      <div class="auth-signin">
-        <div class="auth-signin-button" ng-show="!isLoggedIn" ng-click="toggleSigninForm()">
-          <i class="fa fa-sign-in fa-2x"></i>
+      <div class="auth-signin auth-component" ng-show="!isLoggedIn">
+        <div class="auth-button" ng-click="toggleSigninForm()">
+          <i class="fa fa-sign-in fa-3x"></i>
         </div>
 
-        <form class="auth-form" ng-show="render.signinForm">
-          <h3 class="auth-form-title">Sign In</h3>
+        <form class="auth-signin-form" ng-show="render.signinForm">
+          <p class="auth-form-title">Sign In</p>
           <input type="text" class="auth-form-input" placeholder="Email" ng-model="user.username"></input>
           <input type="password" class="auth-form-input" placeholder="password" ng-model="user.password"></input>
-          <button class="auth-form-submit signin-submit" ng-click="signin(user)">Sign In</button>
+          <button class="auth-form-input auth-form-submit" ng-click="signin(user)">Ok</button>
           <p class="auth-form-error-message" ng-show="errorMessage && render.signinForm">{{errorMessage}}</p>
         </form>
       </div>
 
-      <div class="auth-signout">
-        <div class="auth-signout-button" ng-show="isLoggedIn" ng-click="signout()">
-          <i class="fa fa-sign-out fa-2x"></i>
-          <!-- <p class="auth-signout-button-text">Log Out</p> -->
+      <div class="auth-signout auth-component">
+        <div class="auth-button" ng-show="isLoggedIn" ng-click="signout()">
+          <i class="fa fa-sign-out fa-3x"></i>
+        </div>
+      </div>
+
+      <div class="auth-contribute auth-component" ng-show="isLoggedIn">
+        <div class="auth-button">
+          <a class="auth-contribute-link" href="https://github.com/myeung58/teams-of-legends" target="_blank">
+            <i class="fa fa-github fa-3x"></i>
+          </a>
+        </div>
       </div>
 
     </div>

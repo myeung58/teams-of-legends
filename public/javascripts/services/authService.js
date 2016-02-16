@@ -1,8 +1,11 @@
 app.service('AuthService', function($http, $window){
   var _this = this;
+  this.urls = {
+    signup: '/signup',
+    signin: '/signin'
+  };
 
   this.saveToken = function(token) {
-    console.log('about to save token: ', token);
     $window.localStorage['teams-of-legends-token'] = token;
   };
 
@@ -11,12 +14,10 @@ app.service('AuthService', function($http, $window){
   };
 
   this.signup = function(user, callback){
-    var url = '/signup';
-    console.log('about to sign up with: ', user);
+    var url = this.urls.signup;
+
     $http.post(url, user)
       .then(function(response) {
-        console.log('successful response from server');
-        console.log(response);
 
         _this.saveToken(response.data.token);
         callback('success');
@@ -26,8 +27,8 @@ app.service('AuthService', function($http, $window){
   };
 
   this.signin = function(user, callback){
-    var url = '/signin';
-    console.log('about to sign in with: ', user);
+    var url = this.urls.signin;
+
     $http.post(url, user)
       .then(function(response){
         _this.saveToken(response.data.token);
@@ -51,7 +52,6 @@ app.service('AuthService', function($http, $window){
       // if expired, treat it as logged out
       return data.exp > Date.now() / 1000;
     } else {
-      console.log('reached false');
       return false;
     }
   };
