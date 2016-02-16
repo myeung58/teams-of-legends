@@ -15,7 +15,6 @@ app.controller('mainController', function ($scope, RequestService, StatsService,
   };
 
   $scope.renderReset = function(exception) {
-    console.log('render reset');
     for (var key in $scope.render) {
       if (key !== exception) {
         $scope.render[key] = false;
