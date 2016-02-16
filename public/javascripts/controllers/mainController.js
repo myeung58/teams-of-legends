@@ -1,4 +1,4 @@
-angular.module('TeamsOfLegends').controller('mainController', function ($scope, SearchService, StatsService) {
+app.controller('mainController', function ($scope, RequestService, StatsService, AuthService) {
   $scope.searchTerm = '';
   $scope.summonerResult = {};
   $scope.teamsResult = {};
@@ -27,7 +27,7 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
     if (!searchTerm) { return; }
     console.log(searchTerm);
     $scope.searchTerm = searchTerm.trim().toLowerCase();
-    SearchService.getSummoner($scope.searchTerm, function(summoner) {
+    RequestService.getSummoner($scope.searchTerm, function(summoner) {
       console.log('about to render: ', summoner);
       $scope.renderReset();
       $scope.summonerResult = summoner;
@@ -46,7 +46,7 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
   $scope.searchForTeams = function() {
     if (!$scope.summonerResult.id) { return; }
 
-    SearchService.getTeams($scope.summonerResult.id, function(teams) {
+    RequestService.getTeams($scope.summonerResult.id, function(teams) {
       console.log('about to render: ', teams);
       $scope.renderReset();
       $scope.teamsResult = teams;
@@ -68,12 +68,8 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
     } else {
       $scope.currentTeam = team;
       $scope.render.teamStats = true;
-      // do something with StatsService
+
       StatsService.compileHistorySummary(team.matchHistory, function(historySummary) {
-        console.log('got back history summmary');
-        // historical wins and losses
-        // gameMode, win (boolean), mapId, kills, assists, deaths, opposingTeamName
-        // charts for kda
         console.log('about to render history summary: ', historySummary);
         $scope.historySummary = historySummary;
       });
@@ -86,5 +82,9 @@ angular.module('TeamsOfLegends').controller('mainController', function ($scope, 
     }
   };
 
-
+  // if loggedin, send request to load saved teams
+  // if (AuthService.isLoggedIn()) {
+  //   $scope.showSavedTeams();
+  //   console.log('is logged in');
+  // }
 });

@@ -7,11 +7,16 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 
 var mongoose = require('mongoose');
+var passport = require('passport');
+
 // Load all models
 var models_path = __dirname + '/models';
 fs.readdirSync(models_path).forEach(function (file) {
   if (~file.indexOf('.js')) { require(models_path + '/' + file); }
 });
+require('./config/passport');
+
+
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
   if (error) {
     console.error(error);
@@ -43,6 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use(passport.initialize());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,9 +1,12 @@
 var ApiRequest = require('../models/ApiRequest.js');
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 var mongoose = require('mongoose');
-var Team = mongoose.model('Team');
-var Match = mongoose.model('Match');
+var User = mongoose.model('User');
+var jwt = require('express-jwt');
+// userProperty specifies which property on req to put our payload from our tokens
+var auth = jwt({secret: process.env.SSH_KEY, userProperty: 'data'});
 
 // router.param('team', function(req, res, next, id) {
 //   var query = Team.findById(id);
@@ -79,18 +82,49 @@ router.get('/teams/by-summoner', function(req, res) {
   });
 });
 
-router.post('/teams', function(req, res, next) {
-  var team = new Team(req.body);
+router.post('/signup', function(req, res, next) {
+  // add password confirmation
+  console.log('request body: ', req.body);
+  if(!req.body.username || !req.body.password) {
+    return res.status(400).json({ message: 'Please fill out all fields' });
+  }
+  var emailPattern = /[A-Z0-9.]+@[A-Z0-9.]+.[A-Z]/i;
+  if (!emailPattern.test(req.body.username)) {
+    return res.status(400).json({ message: 'Please enter valid email' });
+  }
 
-  team.save(function(err, team) {
-    if(err){ return next(err); }
+  var user = new User();
 
-    res.json(team);
+  user.username = req.body.username;
+  user.setPassword(req.body.password);
+  console.log('about to save user as: ', user);
+  user.save(function (err) {
+    console.log(err);
+    if (err) {
+      if (err.toJSON().code === 11000) {
+        return res.status(400).json({ message: 'Username is already taken'});
+      }
+      return next(err);
+    }
+    console.log('about to respond');
+    return res.json({token: user.generateJWT()});
   });
 });
 
-// function resolvedResponse() {
+router.post('/signin', function(req, res, next) {
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).json({ message: 'Please fill out all fields' });
+  }
 
-// };
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    console.log('authing user: ', user);
+    if (user) {
+      return res.json({token: user.generateJWT()});
+    } else {
+      return res.status(401).json(info);
+    }
+  })(req, res, next);
+});
 
 module.exports = router;

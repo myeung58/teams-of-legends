@@ -2,13 +2,52 @@
   <head>
     <title>Teams of Legends</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/mainStyle.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/authStyle.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
     <script src="https://code.angularjs.org/1.5.0/angular-animate.js"></script>
   </head>
-  <body ng-app="TeamsOfLegends" ng-controller="mainController">
+  <body ng-app="TeamsOfLegends">
+    <div class="auth" ng-controller="authController">
+
+      <div class="auth-signup">
+        <div class="auth-signup-button" ng-show="!isLoggedIn" ng-click="toggleSignupForm()">
+          <i class="fa fa-user-plus fa-2x"></i>
+        </div>
+
+        <form class="auth-form" ng-show="render.signupForm">
+          <h3 class="auth-form-title">Sign Up</h3>
+          <input class="auth-form-input" type="text" placeholder="Email" ng-model="user.username"></input>
+          <input class="auth-form-input" type="password" placeholder="New Password" ng-model="user.password"></input>
+          <button class="auth-form-submit signup-submit" ng-click="signup(user)">Sign Up</button>
+          <p class="auth-form-error-message" ng-show="errorMessage && render.signupForm">{{errorMessage}}</p>
+        </form>
+      </div>
+
+      <div class="auth-signin">
+        <div class="auth-signin-button" ng-show="!isLoggedIn" ng-click="toggleSigninForm()">
+          <i class="fa fa-sign-in fa-2x"></i>
+        </div>
+
+        <form class="auth-form" ng-show="render.signinForm">
+          <h3 class="auth-form-title">Sign In</h3>
+          <input type="text" class="auth-form-input" placeholder="Email" ng-model="user.username"></input>
+          <input type="password" class="auth-form-input" placeholder="password" ng-model="user.password"></input>
+          <button class="auth-form-submit signin-submit" ng-click="signin(user)">Sign In</button>
+          <p class="auth-form-error-message" ng-show="errorMessage && render.signinForm">{{errorMessage}}</p>
+        </form>
+      </div>
+
+      <div class="auth-signout">
+        <div class="auth-signout-button" ng-show="isLoggedIn" ng-click="signout()">
+          <i class="fa fa-sign-out fa-2x"></i>
+          <!-- <p class="auth-signout-button-text">Log Out</p> -->
+      </div>
+
+    </div>
+
     <ui-view></ui-view>
 
     <video autoplay loop poster="images/lolbackground.png" id="video-background">
@@ -18,7 +57,9 @@
   </body>
 
   <script src="/javascripts/angularApp.js"></script>
-  <script type="text/javascript" src="/javascripts/services/searchService.js"></script>
+  <script type="text/javascript" src="/javascripts/services/requestService.js"></script>
   <script type="text/javascript" src="/javascripts/services/statsService.js"></script>
+  <script type="text/javascript" src="/javascripts/services/authService.js"></script>
   <script type="text/javascript" src="/javascripts/controllers/mainController.js"></script>
+  <script type="text/javascript" src="/javascripts/controllers/authController.js"></script>
 </html>
