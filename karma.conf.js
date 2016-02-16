@@ -10,12 +10,15 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'tests/**/*Spec.js',
+      'https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js',
+      'https://code.angularjs.org/1.5.0/angular-mocks.js',
+      'public/javascripts/**/*.js',
       'tests/**/*.js'
     ],
 
@@ -51,7 +54,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // start these browsers

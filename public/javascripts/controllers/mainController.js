@@ -1,4 +1,4 @@
-app.controller('mainController', function ($scope, RequestService, StatsService, AuthService) {
+app.controller('mainController', function ($scope, RequestService, StatsService) {
   $scope.searchTerm = '';
   $scope.summonerResult = {};
   $scope.teamsResult = {};
@@ -81,9 +81,4 @@ app.controller('mainController', function ($scope, RequestService, StatsService,
     }
   };
 
-  // if loggedin, send request to load saved teams
-  // if (AuthService.isLoggedIn()) {
-  //   $scope.showSavedTeams();
-  //   console.log('is logged in');
-  // }
 });
